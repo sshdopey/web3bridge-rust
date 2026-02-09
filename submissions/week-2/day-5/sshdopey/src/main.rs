@@ -12,7 +12,7 @@ fn main() {
 
     loop {
         println!("\nOPTIONS: [1] Add  [2] View  [3] Update  [4] Delete  [q] Quit");
-        let choice = read_input("> ", None).unwrap();
+        let choice = read_input("> ", false).unwrap();
 
         match choice.as_str() {
             "1" => handle_add(&mut tracker),

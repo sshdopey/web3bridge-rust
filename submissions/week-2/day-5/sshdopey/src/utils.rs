@@ -9,7 +9,7 @@ pub fn print(s: &str) {
     io::stdout().flush().unwrap();
 }
 
-pub fn read_input(prompt: &str, is_optional: Option<bool>) -> Option<String> {
+pub fn read_input(prompt: &str, is_optional: bool) -> Option<String> {
     print(prompt);
     let mut input = String::new();
     io::stdin()
@@ -17,14 +17,14 @@ pub fn read_input(prompt: &str, is_optional: Option<bool>) -> Option<String> {
         .expect("Failed to read input");
     let trimmed = input.trim().to_string();
 
-    if is_optional.unwrap_or(false) && trimmed.is_empty() {
+    if is_optional && trimmed.is_empty() {
         None
     } else {
         Some(trimmed)
     }
 }
 
-pub fn read_f64(prompt: &str, is_optional: Option<bool>) -> Option<f64> {
+pub fn read_f64(prompt: &str, is_optional: bool) -> Option<f64> {
     loop {
         let input = read_input(prompt, is_optional);
         match input {
@@ -40,7 +40,7 @@ pub fn read_f64(prompt: &str, is_optional: Option<bool>) -> Option<f64> {
 
 pub fn read_u32(prompt: &str) -> u32 {
     loop {
-        let input = read_input(prompt, None).unwrap();
+        let input = read_input(prompt, false).unwrap();
         match input.parse::<u32>() {
             Ok(n) => return n,
             Err(_) => println!("Invalid ID. Please enter a valid positive number."),
@@ -48,7 +48,7 @@ pub fn read_u32(prompt: &str) -> u32 {
     }
 }
 
-pub fn read_transaction_type(is_optional: Option<bool>) -> Option<TransactionType> {
+pub fn read_transaction_type(is_optional: bool) -> Option<TransactionType> {
     loop {
         let input = read_input("Type (c = Credit, d = Debit): ", is_optional);
         match input {

@@ -48,7 +48,7 @@ impl ExpenseTracker {
     }
 
     pub fn save(&self) {
-        let json = serde_json::to_string_pretty(self).unwrap();
+        let json = serde_json::to_string_pretty(self).expect("Failed to serialize data");
         fs::write(DATA_FILE, json).expect("Unable to write file");
     }
 

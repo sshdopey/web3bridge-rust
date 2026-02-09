@@ -4,9 +4,9 @@ use crate::utils::{
 };
 
 pub fn handle_add(tracker: &mut ExpenseTracker) {
-    let name = read_input("Enter Name: ", None).unwrap();
-    let amount = read_f64("Enter Amount: ", None).unwrap();
-    let tx_type = read_transaction_type(None).unwrap();
+    let name = read_input("Enter Name: ", false).unwrap();
+    let amount = read_f64("Enter Amount: ", false).unwrap();
+    let tx_type = read_transaction_type(false).unwrap();
 
     let expense = tracker.add(name, amount, tx_type);
     print_expense(&expense);
@@ -29,9 +29,9 @@ pub fn handle_update(tracker: &mut ExpenseTracker) {
         print_expense(expense);
         println!("Press Enter to skip a field.");
 
-        let new_name = read_input("New Name: ", Some(true));
-        let new_amount = read_f64("New Amount: ", Some(true));
-        let new_tx_type = read_transaction_type(Some(true));
+        let new_name = read_input("New Name: ", true);
+        let new_amount = read_f64("New Amount: ", true);
+        let new_tx_type = read_transaction_type(true);
 
         if new_name.is_none() && new_amount.is_none() && new_tx_type.is_none() {
             println!("No changes made.");
@@ -61,9 +61,9 @@ pub fn handle_delete(tracker: &mut ExpenseTracker) {
 }
 
 pub fn handle_quit() {
-    let confirm = read_input("Are you sure you want to quit? (y/n): ", None).unwrap();
+    let confirm = read_input("Are you sure you want to quit? (y/n): ", false).unwrap();
     if confirm.eq_ignore_ascii_case("y") {
-        println!("Data saved. Exiting application.");
+        println!("Exiting application");
         std::process::exit(0);
     }
 }
